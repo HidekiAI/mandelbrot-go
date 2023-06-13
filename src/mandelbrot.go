@@ -1,4 +1,4 @@
-package mandelbrot
+package main
 
 import (
 	"fmt"
@@ -8,15 +8,19 @@ import (
 // "math" is not enough, we need "math/cmplx" for complex numbers
 
 func calculateMandelbrot(maxIters int, xMin float64, xMax float64, yMin float64, yMax float64, width int, height int) [][]int {
-	allRows := make([][]int, width)
+	//fmt.Printf("xMin: %f, xMax: %f, yMin: %f, yMax: %f, width: %d, height: %d\n", xMin, xMax, yMin, yMax, width, height)
+
+	allRows := make([][]int, height)
 	for imgY := 0; imgY < height; imgY++ {
-		row := make([]int, height)
+		row := make([]int, width)
 		for imgX := 0; imgX < width; imgX++ {
 			cx := xMin + (xMax-xMin)*(float64(imgX)/float64(width))
 			cy := yMin + (yMax-yMin)*(float64(imgY)/float64(height))
 			escapedAt := mandelbrotAtPoint(cx, cy, maxIters)
+			//fmt.Printf("imgX: %d - cx: %f, cy: %f, escapedAt: %d\n", imgX, cx, cy, escapedAt)
 			row[imgX] = escapedAt
 		}
+		//fmt.Printf("imgY: %d - row: %v\n", imgY, row)
 		allRows[imgY] = row
 	}
 	return allRows

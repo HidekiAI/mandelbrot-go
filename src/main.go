@@ -1,4 +1,4 @@
-package mandelbrot
+package main
 
 import (
 	"fmt"
